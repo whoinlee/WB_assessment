@@ -1,13 +1,9 @@
-import { useState, useEffect, useCallback,
-        // useRef, 
-} from 'react';
+import { useState, useEffect, useCallback } from 'react';
 // import { gsap } from "gsap";
 //-- components
 import Tile from './components/Tile';
 //-- data
-import { MovieType, 
-        // Ref 
-} from './data/DataType';
+import { MovieType } from './data/DataType';
 import { API_MOVIE } from './data/tmdAPI';
 //-- styles
 import './styles/App.scss';
@@ -21,7 +17,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
-  // const tileRefs = useRef<Ref[]>([]);
 
   //-- get movies data
   useEffect(() => {
@@ -59,7 +54,7 @@ function App() {
           }
           break;
       case "ArrowRight":
-        if (activeIndex < totalMovies - 1 && activeIndex !== -1) {
+        if (activeIndex <= totalMovies - 1 && activeIndex !== -1) {
           if (activeIndex % numCols === (numCols - 1)) {
             //-- if at the right end, move to the 1st tile of the row (circular)
             setActiveIndex(activeIndex - numCols + 1);
@@ -83,7 +78,7 @@ function App() {
       default:
         break;
     }
-    console.log("activeIndex?", activeIndex)
+    // console.log("activeIndex?", activeIndex);
   }, [activeIndex, numRows, numCols, totalMovies]);
   
   //-- add listeners on mount, remove on unmount
@@ -105,7 +100,6 @@ function App() {
                     title={movie.title}
                     poster_path={movie.poster_path}
                     isOnFocus={(activeIndex === index) ? true:false}
-                    // ref={(elt:any) => tileRefs.current[index] = elt}
               />
             )
           }
