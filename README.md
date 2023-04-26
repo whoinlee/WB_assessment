@@ -1,3 +1,6 @@
+![Alt text](/screenShots/screenShot1.png?raw=true "ScreenShot")
+<br/><br/>
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -9,4 +12,4 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
