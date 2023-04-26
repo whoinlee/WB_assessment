@@ -1,9 +1,4 @@
-import {  
-          useState, 
-          forwardRef 
-} from 'react';
-//-- data
-// import { Ref } from '../data/DataType';
+import {  useState, forwardRef } from 'react';
 import { API_IMAGE } from '../data/tmdAPI';
 
 type Props = {
@@ -12,8 +7,7 @@ type Props = {
   poster_path:string;
 };
 
-const Tile = forwardRef<HTMLDivElement, Props>((props:any, ref) => {
-// const Tile = ((props:any, ref:Ref) => {
+const Tile = forwardRef<HTMLDivElement, Props>((props:Props, ref) => {
         const [isOnFocus, setIsOnFocus] = useState(false);
         const onFocusIn = () => {
           setIsOnFocus(true);

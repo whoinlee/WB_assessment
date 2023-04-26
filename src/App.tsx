@@ -96,10 +96,9 @@ function App() {
 
   //-- when the index changes, give focus to the selected tile
   const onIndexChange = useCallback(() => {
-    console.log("INFO : onIndexChange")
     if (activeIndex >= 0) {
         const currTileRef = tileRefs.current[activeIndex];
-        console.log("currTileRef??", currTileRef)
+        // console.log("currTileRef??", currTileRef)
         if (currTileRef) {
           //-- undefined
         }
