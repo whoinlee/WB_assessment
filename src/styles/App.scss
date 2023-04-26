@@ -19,6 +19,7 @@ $tile-gap: 15px;
   width: 100%;
 }
 
+//-- movies grid
 .movies {
   margin: 0px auto;
   display: flex;
@@ -30,6 +31,7 @@ $tile-gap: 15px;
     margin-bottom: $movies-header-margin-bottom;
     color: black;
   }
+
   &_header.onFocus {
     font-size: calc($movies-header-font-size + 2px);
     color: rgb(34, 16, 135);

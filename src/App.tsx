@@ -41,7 +41,6 @@ function App() {
     switch (event.code) {
       case "ArrowDown":
         if (activeIndex === -1) {
-          // console.log("active index is in the header, totalMovies?", totalMovies)
           //-- move focus from header to movies grid
           setActiveIndex(0);
         } else if (activeIndex < totalMovies - numCols) {
