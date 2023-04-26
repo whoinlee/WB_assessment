@@ -17,8 +17,11 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
+
+  // useRef<(HTMLDivElement | null)[]>([])
+  // useRef<(HTMLElement | null)[]>([])
   // const tileRefs = useRef<React.RefObject<HTMLElement|null>[]>([]);
-  const tileRefs = useRef<Array<Ref>>([]);
+  const tileRefs = useRef<Ref[]>([]);
 
   //-- get movies data
   useEffect(() => {
@@ -114,7 +117,7 @@ function App() {
               <Tile key={movie.id} 
                     title={movie.title}
                     poster_path={movie.poster_path}
-                    ref={(elt:Ref) => tileRefs.current[index] = elt}  //any -> Ref
+                    ref={(elt:any) => tileRefs.current[index] = elt}
               />
             )
           }
