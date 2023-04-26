@@ -1,0 +1,133 @@
+import { useState, useEffect, useRef, useCallback } from 'react';
+// import { gsap } from "gsap";
+//-- components
+import Tile from './components/Tile';
+//-- data
+import { MovieType, Ref } from './data/DataType';
+import { API_MOVIE } from './data/tmdAPI';
+//-- styles
+import './styles/App.scss';
+
+
+const MOVIES_PER_ROW = 5;
+
+function App() {
+  const numCols = MOVIES_PER_ROW;
+  const [numRows, setNumRows] = useState(0);
+  const [movies, setMovies] = useState([]);
+  const [totalMovies, setTotalMovies] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  // const tileRefs = useRef<React.RefObject<HTMLElement|null>[]>([]);
+  const tileRefs = useRef<Array<Ref>>([]);  //working
+
+  //-- get movies data
+  useEffect(() => {
+    const getMovies = async() => {
+      const data = await(await fetch(API_MOVIE)).json();
+      // console.log("data : ", data);
+      const movies = data.results;
+      const numOfMovies = movies.length;
+      setNumRows(Math.round(numOfMovies/MOVIES_PER_ROW));
+      setMovies(movies);
+      setTotalMovies(numOfMovies);
+      // setDataLoaded(true);
+      // while(movies.length) {
+      //   console.log(movies.splice(0,MOVIES_PER_ROW));
+      // }
+    };
+    getMovies();
+  }, []);
+
+  const onKeyDownHandler = useCallback((event:KeyboardEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    // console.log(event.code);
+    switch (event.code) {
+      case "ArrowDown":
+        if (activeIndex === -1) {
+          // console.log("active index is in the header, totalMovies?", totalMovies)
+          //-- move focus from header to movies grid
+          setActiveIndex(0);
+        } else if (activeIndex < totalMovies - numCols) {
+          setActiveIndex(activeIndex + numCols);
+        }
+        break;
+      case "ArrowUp":
+          if (activeIndex > numRows) {
+            setActiveIndex(activeIndex - numCols);
+          } else {
+            //-- move focus from movies grid to header
+            setActiveIndex(-1);
+          }
+          break;
+      case "ArrowRight":
+        if (activeIndex < totalMovies - 1 && activeIndex !== -1) {
+          //-- TODO: check on the last row
+          if (activeIndex % numCols === (numCols - 1)) {
+            //-- if at right end, move to the 1st tile of the row (circular)
+            setActiveIndex(activeIndex - numCols + 1);
+          } else {
+            setActiveIndex(activeIndex + 1);
+          }
+        }
+        break;
+      case "ArrowLeft":
+        if (activeIndex >= 0) {
+          if (activeIndex % numCols === 0) {
+            //-- if at left end, move to the last tile of the row (circular)
+            const lastIndex = (activeIndex + numCols - 1 >= totalMovies -1) ? 
+                              totalMovies -1: activeIndex + numCols - 1;
+            setActiveIndex(lastIndex);
+          } else {
+            setActiveIndex(activeIndex - 1);
+          }
+        }
+        break;
+      default:
+        break;
+    }
+    console.log("activeIndex?", activeIndex)
+  }, [activeIndex, numRows, numCols, totalMovies]);
+  
+  //-- add listeners on mount, remove on unmount
+  useEffect(() => {
+    window.addEventListener("keydown", onKeyDownHandler);
+    return () => {
+        window.removeEventListener("keydown", onKeyDownHandler);
+    };
+  }, [onKeyDownHandler]);
+
+  //-- when the index changes, give focus to the selected tile
+  const onIndexChange = useCallback(() => {
+    console.log("INFO : onIndexChange")
+    if (activeIndex >= 0) {
+        const currTileRef = tileRefs.current[activeIndex];
+        console.log("currTileRef??", currTileRef)
+        if (currTileRef) {
+          //-- undefined
+        }
+    }
+  }, [activeIndex, tileRefs]);
+  useEffect(onIndexChange, [activeIndex, onIndexChange]);
+
+  return (
+    <div className="container">
+      <div className="movies">
+        <div className={`movies_header${activeIndex === -1 ? " onFocus" : ""}`}>Popular Movies</div>
+        <div className="movies_grid">
+          { 
+            movies?.map((movie:MovieType, index) => 
+              <Tile key={movie.id} 
+                    title={movie.title}
+                    poster_path={movie.poster_path}
+                    ref={(elt:Ref) => tileRefs.current[index] = elt}  //any -> Ref
+              />
+            )
+          }
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;

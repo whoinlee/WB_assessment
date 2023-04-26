@@ -1,0 +1,77 @@
+//-- variables -------------//
+//-- movies --//
+$movies-header-font-size: 15px;
+$movies-header-margin-bottom: 12px;
+$movies-per-row: 5;
+//-- tile ---//
+$tile-title-font-size: 11px;
+$tile-title-margin-left: 4px;
+$tile-width: 106px;
+$tile-height: 159px;
+$tile-gap: 15px;
+//--------------------------//
+
+
+//-- App related -----------//
+.container {
+  position: absolute;
+  top: 40px;
+  width: 100%;
+}
+
+.movies {
+  margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  width: calc(($tile-width + $tile-gap) * $movies-per-row - $tile-gap);
+
+  &_header {
+    font-size: $movies-header-font-size;
+    margin-bottom: $movies-header-margin-bottom;
+    color: black;
+  }
+  &_header.onFocus {
+    font-size: calc($movies-header-font-size + 2px);
+    color: rgb(34, 16, 135);
+  }
+  
+  &_grid {
+    display: grid;
+    grid-template-columns: $tile-width $tile-width $tile-width $tile-width $tile-width;
+    gap: $tile-gap;
+  }
+}
+//--------------------------//
+
+
+//-- Tile related ----------//
+.tile {
+  position: relative;
+  width: $tile-width;
+  height: $tile-height;
+  border-radius: 6px;
+  overflow: hidden;
+  
+  &_title {
+    position: absolute;
+    top: 70px;
+    text-align: center;
+    margin-left: $tile-title-margin-left;
+    width: calc($tile-width - $tile-title-margin-left*2);
+    font-size: $tile-title-font-size;
+    color: white;
+    z-index: 10;
+    outline: none;
+  }
+
+  &_title.onFocus {
+    outline: solid red 2px; //-- for testing
+  }
+
+  &_image {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+}
