@@ -7,6 +7,4 @@ export type MovieType = {
     // vote_average: number;
 };
 
-// export type Ref = React.RefObject<HTMLDivElement|null>;
 export type Ref = React.RefObject<HTMLDivElement> | null;
-// export type Ref = React.RefObject<HTMLDivElement> | null;

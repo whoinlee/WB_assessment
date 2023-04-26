@@ -17,10 +17,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
-
-  // useRef<(HTMLDivElement | null)[]>([])
-  // useRef<(HTMLElement | null)[]>([])
-  // const tileRefs = useRef<React.RefObject<HTMLElement|null>[]>([]);
   const tileRefs = useRef<Ref[]>([]);
 
   //-- get movies data
@@ -94,18 +90,6 @@ function App() {
     };
   }, [onKeyDownHandler]);
 
-  //-- when the index changes, give focus to the selected tile
-  const onIndexChange = useCallback(() => {
-    if (activeIndex >= 0) {
-        const currTileRef = tileRefs.current[activeIndex];
-        // console.log("currTileRef??", currTileRef)
-        if (currTileRef) {
-          //-- undefined
-        }
-    }
-  }, [activeIndex, tileRefs]);
-  useEffect(onIndexChange, [activeIndex, onIndexChange]);
-
   return (
     <div className="container">
       <div className="movies">
@@ -116,6 +100,7 @@ function App() {
               <Tile key={movie.id} 
                     title={movie.title}
                     poster_path={movie.poster_path}
+                    isOnFocus={(activeIndex === index) ? true:false}
                     ref={(elt:any) => tileRefs.current[index] = elt}
               />
             )
