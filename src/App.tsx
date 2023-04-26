@@ -1,9 +1,13 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useCallback,
+        // useRef, 
+} from 'react';
 // import { gsap } from "gsap";
 //-- components
 import Tile from './components/Tile';
 //-- data
-import { MovieType, Ref } from './data/DataType';
+import { MovieType, 
+        // Ref 
+} from './data/DataType';
 import { API_MOVIE } from './data/tmdAPI';
 //-- styles
 import './styles/App.scss';
@@ -17,7 +21,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const tileRefs = useRef<Ref[]>([]);
+  // const tileRefs = useRef<Ref[]>([]);
 
   //-- get movies data
   useEffect(() => {
@@ -101,7 +105,7 @@ function App() {
                     title={movie.title}
                     poster_path={movie.poster_path}
                     isOnFocus={(activeIndex === index) ? true:false}
-                    ref={(elt:any) => tileRefs.current[index] = elt}
+                    // ref={(elt:any) => tileRefs.current[index] = elt}
               />
             )
           }
