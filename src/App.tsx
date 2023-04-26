@@ -18,7 +18,7 @@ function App() {
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
   // const tileRefs = useRef<React.RefObject<HTMLElement|null>[]>([]);
-  const tileRefs = useRef<Array<Ref>>([]);  //working
+  const tileRefs = useRef<Array<Ref>>([]);
 
   //-- get movies data
   useEffect(() => {
@@ -30,10 +30,6 @@ function App() {
       setNumRows(Math.round(numOfMovies/MOVIES_PER_ROW));
       setMovies(movies);
       setTotalMovies(numOfMovies);
-      // setDataLoaded(true);
-      // while(movies.length) {
-      //   console.log(movies.splice(0,MOVIES_PER_ROW));
-      // }
     };
     getMovies();
   }, []);
@@ -62,9 +58,8 @@ function App() {
           break;
       case "ArrowRight":
         if (activeIndex < totalMovies - 1 && activeIndex !== -1) {
-          //-- TODO: check on the last row
           if (activeIndex % numCols === (numCols - 1)) {
-            //-- if at right end, move to the 1st tile of the row (circular)
+            //-- if at the right end, move to the 1st tile of the row (circular)
             setActiveIndex(activeIndex - numCols + 1);
           } else {
             setActiveIndex(activeIndex + 1);
@@ -74,7 +69,7 @@ function App() {
       case "ArrowLeft":
         if (activeIndex >= 0) {
           if (activeIndex % numCols === 0) {
-            //-- if at left end, move to the last tile of the row (circular)
+            //-- if at the left end, move to the last tile of the row (circular)
             const lastIndex = (activeIndex + numCols - 1 >= totalMovies -1) ? 
                               totalMovies -1: activeIndex + numCols - 1;
             setActiveIndex(lastIndex);

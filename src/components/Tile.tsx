@@ -1,6 +1,6 @@
-// import React from 'react';
-import { useState, 
-  forwardRef 
+import {  
+          useState, 
+          // forwardRef 
 } from 'react';
 //-- data
 import { Ref } from '../data/DataType';
@@ -23,7 +23,7 @@ const Tile = ((props:any, ref:Ref) => {
         }
       
         return (
-          // <div className="tile" ref={props.ref} >
+          // <div className="tile" ref={ref} >
           <div className="tile">
             <div className={`tile_title${isOnFocus ? " onFocus" : ""}`}>{props.title}</div>
             <img className="tile_image" alt={props.title} src={API_IMAGE + props.poster_path}/>
