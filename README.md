@@ -1,4 +1,4 @@
-![Alt text](/screenShots/screenShot1.png?raw=true "ScreenShot")
+![Alt text](/screenShots/screenShot2.png?raw=true "ScreenShot")
 <br/><br/>
 
 ## Available Scripts
