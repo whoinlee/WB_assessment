@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-// import { gsap } from "gsap";
 //-- components
 import Tile from './components/Tile';
 //-- data
