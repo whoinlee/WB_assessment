@@ -14,6 +14,7 @@ const MOVIES_PER_ROW = 5;
 function App() {
   const numCols = MOVIES_PER_ROW;
   const [numRows, setNumRows] = useState(0);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -28,6 +29,7 @@ function App() {
       setNumRows(Math.round(numOfMovies/MOVIES_PER_ROW));
       setMovies(movies);
       setTotalMovies(numOfMovies);
+      setDataLoaded(true);
     };
     getMovies();
   }, []);
@@ -93,17 +95,20 @@ function App() {
     <div className="container">
       <div className="movies">
         <div className={`movies_header${activeIndex === -1 ? " onFocus" : ""}`}>Popular Movies</div>
-        <div className="movies_grid">
-          { 
-            movies?.map((movie:MovieType, index) => 
-              <Tile key={movie.id} 
-                    title={movie.title}
-                    poster_path={movie.poster_path}
-                    isOnFocus={(activeIndex === index) ? true:false}
-              />
-            )
-          }
-        </div>
+        { !dataLoaded ? 
+          <p className="movies_loading">loading data...</p> :
+          <div className="movies_grid">
+            { 
+              movies?.map((movie:MovieType, index) => 
+                <Tile key={movie.id} 
+                      title={movie.title}
+                      poster_path={movie.poster_path}
+                      isOnFocus={(activeIndex === index) ? true:false}
+                />
+              )
+            }
+          </div>
+        }
       </div>
     </div>
   );

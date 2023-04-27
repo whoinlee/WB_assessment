@@ -1,10 +1,10 @@
 //-- variables -------------//
 //-- movies --//
-$movies-header-font-size: 15px;
-$movies-header-margin-bottom: 12px;
+$movies-header-font-size: 16px;
+$movies-header-margin-bottom: 15px;
 $movies-per-row: 5;
 //-- tile ---//
-$tile-title-font-size: 11px;
+$tile-title-font-size: 9px;
 $tile-title-margin-left: 4px;
 $tile-width: 106px;
 $tile-height: 159px;
@@ -22,19 +22,29 @@ $tile-gap: 15px;
 //-- movies grid
 .movies {
   margin: 0px auto;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   width: calc(($tile-width + $tile-gap) * $movies-per-row - $tile-gap);
 
+  &_loading {
+    margin-top: 100px;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+  }
+
   &_header {
     font-size: $movies-header-font-size;
+    margin-left: 2px;
     margin-bottom: $movies-header-margin-bottom;
-    color: black;
+    color: rgba(black, .85);
   }
 
   &_header.onFocus {
-    font-size: calc($movies-header-font-size + 2px);
-    color: rgb(34, 16, 135);
+    // font-size: calc($movies-header-font-size + 1px);
+    color: rgb(38, 30, 123);
+    transition: all .25s ease-out;
   }
   
   &_grid {
@@ -53,27 +63,57 @@ $tile-gap: 15px;
   height: $tile-height;
   border-radius: 6px;
   overflow: hidden;
+  background-color: black;
   
-  &_title {
+  &_desc {
     position: absolute;
-    top: 70px;
+    bottom: 0px;
     text-align: center;
+    width: 100%;
+    height: 35px;
+    z-index: 2;
+    opacity: 1;
+    background-color:rgba(rgb(33, 26, 103), .85);
+  }
+
+  &_desc.onFocus {
+    opacity: 1;
+    // bottom: 0px;
+    bottom: -35px;
+    opacity: 0;
+    transition: all .25s ease-out;
+  }
+
+  &_title {
+    text-align: center;
+    margin-top: 6px;
     margin-left: $tile-title-margin-left;
     width: calc($tile-width - $tile-title-margin-left*2);
+    height: 35px;
     font-size: $tile-title-font-size;
-    color: white;
-    z-index: 10;
-    outline: none;
+    color: rgba(rgb(234, 222, 87), .95);
   }
 
   &_title.onFocus {
-    outline: solid red 2px; //-- for testing
+    color: rgba(white, 0);
   }
 
   &_image {
     position: absolute;
-    top: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    opacity: 75%;
   }
+
+  &_image.onFocus {
+    opacity: 100%;
+  }
+}
+
+.tile.onFocus {
+  background-color: rgba(black, 0);
+  transform: scale(1.07);
+  transition: all .25s ease-out;
 }

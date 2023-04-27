@@ -15,9 +15,11 @@ const Tile = ((props:Props) => {
         }, [props.isOnFocus]);
       
         return (
-          <div className="tile">
-            <div className={`tile_title${isOnFocus ? " onFocus" : ""}`}>{props.title}</div>
-            <img className="tile_image" alt={props.title} src={API_IMAGE + props.poster_path}/>
+          <div className={`tile${isOnFocus ? " onFocus" : ""}`}>
+            <div className={`tile_desc${isOnFocus ? " onFocus" : ""}`}>
+              <div className={`tile_title${isOnFocus ? " onFocus" : ""}`}>{props.title}</div>
+            </div>
+            <img className={`tile_image${isOnFocus ? " onFocus" : ""}`} alt={props.title} src={API_IMAGE + props.poster_path}/>
           </div>
         );
 });
