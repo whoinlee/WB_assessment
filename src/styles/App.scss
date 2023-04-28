@@ -19,7 +19,7 @@ $tile-gap: 15px;
   width: 100%;
 }
 
-//-- movies grid
+//-- movies grid -----------//
 .movies {
   margin: 0px auto;
   margin-bottom: 50px;
@@ -35,16 +35,15 @@ $tile-gap: 15px;
   }
 
   &_header {
-    font-size: $movies-header-font-size;
-    margin-left: 2px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items:baseline;
+    justify-content:flex-start;
     margin-bottom: $movies-header-margin-bottom;
-    color: rgba(black, .85);
-  }
 
-  &_header.onFocus {
-    // font-size: calc($movies-header-font-size + 1px);
-    color: rgb(38, 30, 123);
-    transition: all .25s ease-out;
+    & > div {
+      margin-right: 20px;
+    }
   }
   
   &_grid {
@@ -52,6 +51,24 @@ $tile-gap: 15px;
     grid-template-columns: $tile-width $tile-width $tile-width $tile-width $tile-width;
     gap: $tile-gap;
   }
+}
+//--------------------------//
+
+
+//-- TextButton related ----//
+.textButton {
+  // &_header {
+    font-size: $movies-header-font-size;
+    padding: 2px 4px;
+    opacity: 65%;
+    color: rgba(black, .85);
+    // outline: 1px blue solid;  //-- testing
+}
+
+.textButton.onFocus {
+    color: rgb(38, 30, 123);
+    opacity: 100%;
+    transition: all .25s ease-out;
 }
 //--------------------------//
 

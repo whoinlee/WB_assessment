@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { API_IMAGE } from '../data/tmdAPI';
+import { API_IMAGE } from '../../data/tmdAPI';
 
 type Props = {
   key:number;
