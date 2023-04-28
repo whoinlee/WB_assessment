@@ -51,6 +51,11 @@ $tile-gap: 15px;
     grid-template-columns: $tile-width $tile-width $tile-width $tile-width $tile-width;
     gap: $tile-gap;
   }
+
+  &_grid.hide {
+    visibility: hidden;
+    // display: none;
+  }
 }
 //--------------------------//
 

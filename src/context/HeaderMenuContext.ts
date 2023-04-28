@@ -13,4 +13,5 @@ const initialState = {
     onHeaderFocus: true,
     setOnHeaderFocus: () => {}
 };
+
 export const HeaderMenuContext = createContext<HeaderMenuContent>(initialState);

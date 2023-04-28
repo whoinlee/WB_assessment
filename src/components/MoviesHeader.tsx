@@ -56,8 +56,10 @@ const MoviesHeader = ((props:Props)  => {
 
   useEffect(() => {
     if (onHeaderFocus) {
+      console.log("INFO MoviesHeader :: useEffect, adding eventListener");
       window.addEventListener("keydown", onKeyDownHandler);
     } else {
+      console.log("INFO MoviesHeader :: useEffect, removing eventListener");
       window.removeEventListener("keydown", onKeyDownHandler);
     }
     console.log("INFO MoviesHeader :: useEffect onHeaderFocus? ", onHeaderFocus);

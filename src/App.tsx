@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 //-- components
 import Tile from './components/ui/Tile';
 import MoviesHeader from './components/MoviesHeader';
@@ -14,12 +14,14 @@ import './styles/App.scss';
 const MOVIES_PER_ROW = 5;
 
 function App() {
+  //-- movies related
   const numCols = MOVIES_PER_ROW;
   const [numRows, setNumRows] = useState(0);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
+  //-- header related
   const [onHeaderFocus, setOnHeaderFocus] = useState(true);
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
   const headerMenus = ["Popular Movies", "Menu1","Menu2", "Menu3"];
@@ -40,7 +42,7 @@ function App() {
   }, []);
 
   const onKeyDownHandler = useCallback((event:KeyboardEvent) => {
-    console.log("INFO App :: onKeyDownHandler", event.code);
+    // console.log("INFO App :: onKeyDownHandler", event.code);
     event.preventDefault();
     event.stopPropagation();
 
@@ -49,20 +51,22 @@ function App() {
         if (activeIndex === -1) {
           //-- move focus from header to movies grid
           setActiveIndex(0);
-          // window.addEventListener("keydown", onKeyDownHandler);
+          setOnHeaderFocus(false);
         } else if (activeIndex < totalMovies - numCols) {
           setActiveIndex(activeIndex + numCols);
         }
         break;
       case "ArrowUp":
+        if (activeIndex !== -1) {
           if (activeIndex > numRows) {
             setActiveIndex(activeIndex - numCols);
           } else {
             //-- move focus from movies grid to header
             setActiveIndex(-1);
-            // window.removeEventListener("keydown", onKeyDownHandler);
+            setOnHeaderFocus(true);
           }
-          break;
+        }
+        break;
       case "ArrowRight":
         if (activeIndex <= totalMovies - 1 && activeIndex !== -1) {
           if (activeIndex % numCols === (numCols - 1)) {
@@ -88,23 +92,16 @@ function App() {
       default:
         break;
     }
-    // console.log("activeIndex?", activeIndex);
+    console.log("INFO App :: onKeyDownHandler, activeIndex?", activeIndex);
   }, [activeIndex, numRows, numCols, totalMovies]);
   
   //-- add listeners on mount, remove on unmount
   useEffect(() => {
-    if (!onHeaderFocus) {
-      window.addEventListener("keydown", onKeyDownHandler);
-    } else {
-      //-- focus on header
-      window.removeEventListener("keydown", onKeyDownHandler);
-    }
-
-    console.log("INFO App :: useEffect activeIndex? ", activeIndex);
+    window.addEventListener("keydown", onKeyDownHandler);
     return () => {
       window.removeEventListener("keydown", onKeyDownHandler);
     };
-  }, [onKeyDownHandler, activeIndex, onHeaderFocus]);
+  }, [onKeyDownHandler]);
 
   return (
     <div className="container">
@@ -115,11 +112,10 @@ function App() {
         setOnHeaderFocus
       }}>
       <div className="movies">
-        {/* <MoviesHeader menus={headerMenus} isOnFocus={activeIndex === -1} /> */}
         <MoviesHeader menus={headerMenus}/>
         { !dataLoaded ? 
         <p className="movies_loading">loading data...</p> :
-        <div className="movies_grid">
+        <div className={`movies_grid${(activeMenuIndex !== 0) ? " hide" : ""}`}>
           { 
             movies?.map((movie:MovieType, index) => 
               <Tile key={movie.id} 
