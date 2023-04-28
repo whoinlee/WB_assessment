@@ -11,7 +11,9 @@ const DummyPage = () => {
 
   return (
     <div className={`dummyPage${!onHeaderFocus ? " onFocus" : ""}`}>
-      dummyPage {activeMenuIndex}
+        <div className={`dummyPage_container${activeMenuIndex}`}>
+            dummyPage {activeMenuIndex}
+        </div>
     </div>
   )
 }
