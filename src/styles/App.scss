@@ -51,13 +51,26 @@ $tile-gap: 15px;
     grid-template-columns: $tile-width $tile-width $tile-width $tile-width $tile-width;
     gap: $tile-gap;
   }
-
-  &_grid.hide {
-    visibility: hidden;
-    // display: none;
-  }
 }
 //--------------------------//
+
+
+//-- dummy page ------------//
+.dummyPage {
+  outline: solid rgba(black, .75) 1px;
+  width: 100%;
+  height: 400px;
+  padding-bottom: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(black, .1); //-- testing
+}
+
+.dummyPage.onFocus {
+  outline: solid rgb(38, 30, 123) 4px;
+}
 
 
 //-- TextButton related ----//

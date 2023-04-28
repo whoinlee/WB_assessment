@@ -1,12 +1,17 @@
+import { useContext } from 'react';
+//-- contexts
+import { HeaderMenuContext } from '../context/HeaderMenuContext';
 
-type Props = {
-    pageIndex: number;
-}
 
-const DummyPage = (props:Props) => {
+const DummyPage = () => {
+    const { 
+        activeMenuIndex,
+        onHeaderFocus
+        } = useContext(HeaderMenuContext);
+
   return (
-    <div className="dummyPage">
-      dummyPage + {props.pageIndex}
+    <div className={`dummyPage${!onHeaderFocus ? " onFocus" : ""}`}>
+      dummyPage {activeMenuIndex}
     </div>
   )
 }

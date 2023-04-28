@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 //-- components
 import Tile from './components/ui/Tile';
 import MoviesHeader from './components/MoviesHeader';
+import DummyPage from './components/DummyPage';
 //-- contexts
 import { HeaderMenuContext } from './context/HeaderMenuContext';
 //-- data
@@ -12,7 +13,6 @@ import './styles/App.scss';
 
 
 const MOVIES_PER_ROW = 5;
-
 function App() {
   //-- movies related
   const numCols = MOVIES_PER_ROW;
@@ -113,19 +113,25 @@ function App() {
       }}>
       <div className="movies">
         <MoviesHeader menus={headerMenus}/>
-        { !dataLoaded ? 
-        <p className="movies_loading">loading data...</p> :
-        <div className={`movies_grid${(activeMenuIndex !== 0) ? " hide" : ""}`}>
-          { 
-            movies?.map((movie:MovieType, index) => 
-              <Tile key={movie.id} 
-                    title={movie.title}
-                    poster_path={movie.poster_path}
-                    isOnFocus={(activeIndex === index)}
-              />
+        {!dataLoaded ? (
+            <p className="movies_loading">loading data...</p>
+          ) : (
+            (activeMenuIndex === 0) ? (
+              <div className="movies_grid">
+                { 
+                  movies?.map((movie:MovieType, index) => 
+                    <Tile key={movie.id} 
+                          title={movie.title}
+                          poster_path={movie.poster_path}
+                          isOnFocus={(activeIndex === index)}
+                    />
+                  )
+                }
+              </div>
+            ) : (
+              <DummyPage />
             )
-          }
-        </div>
+          )
         }
       </div>
       </HeaderMenuContext.Provider>

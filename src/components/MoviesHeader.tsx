@@ -4,15 +4,12 @@ import TextButton from './ui/TextButton';
 //-- contexts
 import { HeaderMenuContext } from '../context/HeaderMenuContext';
 
+
 type Props = {
   menus: string[];
-  // isonHeaderFocus: boolean;
 };
-
 const MoviesHeader = ((props:Props)  => {
   const [totalMenus, setTotalMenus] = useState(0);
-  // const [activeMenuIndex, setActiveMenuIndex] = useState(0);
-  // const [onHeaderFocus, setOnHeaderFocus] = useState(props.isonHeaderFocus);
   const { 
     activeMenuIndex,
     setActiveMenuIndex,

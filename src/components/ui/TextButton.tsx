@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
+
 type Props = {
   label: string;
   isOnFocus: boolean;
 };
-
 const TextButton = ((props:Props)  => {
         const [isOnFocus, setIsOnFocus] = useState(props.isOnFocus);
         useEffect(() => {

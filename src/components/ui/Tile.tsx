@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { API_IMAGE } from '../../data/tmdAPI';
 
+
 type Props = {
   key:number;
   title:string;
   poster_path:string;
   isOnFocus:boolean;
 };
-
 const Tile = ((props:Props) => {
         const [isOnFocus, setIsOnFocus] = useState(props.isOnFocus);
         useEffect(() => {
