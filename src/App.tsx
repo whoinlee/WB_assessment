@@ -20,8 +20,9 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [totalMovies, setTotalMovies] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [onHeaderFocus, setOnHeaderFocus] = useState(true);
+  const [activeMenuIndex, setActiveMenuIndex] = useState(0);
   const headerMenus = ["Popular Movies", "Menu1","Menu2", "Menu3"];
-  // const { activeMenuIndex } = useContext(HeaderMenuContext);
 
   //-- get movies data
   useEffect(() => {
@@ -92,20 +93,30 @@ function App() {
   
   //-- add listeners on mount, remove on unmount
   useEffect(() => {
-    if (activeIndex !== -1) {
+    if (!onHeaderFocus) {
       window.addEventListener("keydown", onKeyDownHandler);
     } else {
+      //-- focus on header
       window.removeEventListener("keydown", onKeyDownHandler);
     }
+
+    console.log("INFO App :: useEffect activeIndex? ", activeIndex);
     return () => {
       window.removeEventListener("keydown", onKeyDownHandler);
     };
-  }, [onKeyDownHandler, activeIndex]);
+  }, [onKeyDownHandler, activeIndex, onHeaderFocus]);
 
   return (
     <div className="container">
+      <HeaderMenuContext.Provider value={{
+        activeMenuIndex,
+        setActiveMenuIndex,
+        onHeaderFocus,
+        setOnHeaderFocus
+      }}>
       <div className="movies">
-        <MoviesHeader menus={headerMenus} isOnFocus={activeIndex === -1} />
+        {/* <MoviesHeader menus={headerMenus} isOnFocus={activeIndex === -1} /> */}
+        <MoviesHeader menus={headerMenus}/>
         { !dataLoaded ? 
         <p className="movies_loading">loading data...</p> :
         <div className="movies_grid">
@@ -121,6 +132,7 @@ function App() {
         </div>
         }
       </div>
+      </HeaderMenuContext.Provider>
     </div>
   );
 }

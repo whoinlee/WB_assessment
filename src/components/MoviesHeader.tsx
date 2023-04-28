@@ -6,13 +6,19 @@ import { HeaderMenuContext } from '../context/HeaderMenuContext';
 
 type Props = {
   menus: string[];
-  isOnFocus: boolean;
+  // isonHeaderFocus: boolean;
 };
 
 const MoviesHeader = ((props:Props)  => {
   const [totalMenus, setTotalMenus] = useState(0);
-  const [activeMenuIndex, setActiveMenuIndex] = useState(0);
-  const [onFocus, setOnFocus] = useState(props.isOnFocus);
+  // const [activeMenuIndex, setActiveMenuIndex] = useState(0);
+  // const [onHeaderFocus, setOnHeaderFocus] = useState(props.isonHeaderFocus);
+  const { 
+    activeMenuIndex,
+    setActiveMenuIndex,
+    onHeaderFocus,
+    setOnHeaderFocus
+  } = useContext(HeaderMenuContext);
 
   useEffect(() => {
     setTotalMenus(props.menus.length);
@@ -39,40 +45,36 @@ const MoviesHeader = ((props:Props)  => {
         }
         break;
       case "ArrowDown":
-        setOnFocus(false);
+        setOnHeaderFocus(false);
         break;
       case "ArrowUp": //-- nothing above, currently, so do nothing!
       default:
         break;
     }
     // console.log("INFO MoviesHeader :: onKeyDownHandler, activeMenuIndex? ", activeMenuIndex);
-  }, [activeMenuIndex, totalMenus]);
+  }, [activeMenuIndex, totalMenus, setActiveMenuIndex, setOnHeaderFocus]);
 
   useEffect(() => {
-    if (onFocus) {
+    if (onHeaderFocus) {
       window.addEventListener("keydown", onKeyDownHandler);
     } else {
       window.removeEventListener("keydown", onKeyDownHandler);
     }
-    // console.log("INFO MoviesHeader :: useEffect onFocus? ", onFocus);
+    console.log("INFO MoviesHeader :: useEffect onHeaderFocus? ", onHeaderFocus);
 
     return () => {
       window.removeEventListener("keydown", onKeyDownHandler);
     };
-  }, [onFocus, onKeyDownHandler]);
+  }, [onHeaderFocus, onKeyDownHandler]);
 
   return (
-    <>
-    <HeaderMenuContext.Provider value={{activeMenuIndex}}>
-      <div className="movies_header">
-        {
-          props.menus?.map((menu:string, index) => 
-            <TextButton key={menu + index} label={menu} isOnFocus={(activeMenuIndex === index) && onFocus}/>
-          )
-        }
-      </div>
-    </HeaderMenuContext.Provider>
-    </>
+    <div className="movies_header">
+      {
+        props.menus?.map((menu:string, index) => 
+          <TextButton key={menu + index} label={menu} isOnFocus={(activeMenuIndex === index) && onHeaderFocus}/>
+        )
+      }
+    </div>
   );
 });
 
