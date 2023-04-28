@@ -92,7 +92,7 @@ function App() {
       default:
         break;
     }
-    console.log("INFO App :: onKeyDownHandler, activeIndex?", activeIndex);
+    // console.log("INFO App :: onKeyDownHandler, activeIndex?", activeIndex);
   }, [activeIndex, numRows, numCols, totalMovies]);
   
   //-- add listeners on mount, remove on unmount

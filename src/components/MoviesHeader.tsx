@@ -53,13 +53,10 @@ const MoviesHeader = ((props:Props)  => {
 
   useEffect(() => {
     if (onHeaderFocus) {
-      console.log("INFO MoviesHeader :: useEffect, adding eventListener");
       window.addEventListener("keydown", onKeyDownHandler);
     } else {
-      console.log("INFO MoviesHeader :: useEffect, removing eventListener");
       window.removeEventListener("keydown", onKeyDownHandler);
     }
-    console.log("INFO MoviesHeader :: useEffect onHeaderFocus? ", onHeaderFocus);
 
     return () => {
       window.removeEventListener("keydown", onKeyDownHandler);
@@ -70,7 +67,11 @@ const MoviesHeader = ((props:Props)  => {
     <div className="movies_header">
       {
         props.menus?.map((menu:string, index) => 
-          <TextButton key={menu + index} label={menu} isOnFocus={(activeMenuIndex === index) && onHeaderFocus}/>
+          <TextButton key={menu + index} 
+                      label={menu} 
+                      isOnFocus={onHeaderFocus}
+                      isSelected={(activeMenuIndex === index)}
+          />
         )
       }
     </div>
